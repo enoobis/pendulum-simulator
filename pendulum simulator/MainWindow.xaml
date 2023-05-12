@@ -1,0 +1,88 @@
+﻿<Window x:Class="pendulum_simulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pendulum_simulator"
+        mc:Ignorable="d"
+        Title="Pendulum Simulator" Height="350" Width="600" Background="Black"  >
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="5 2 2 5"/>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="75"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel Margin="10">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Mass: " Foreground="White"/>
+                    <TextBox Text="1" Name="tbMass"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Lenght: " Foreground="White"/>
+                    <TextBox Text="1" Name="tbLenght"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Damping: " Foreground="White"/>
+                    <TextBox Text="0,1" Name="tbDamping" TextChanged="tbDamping_TextChanged"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Theta0:" Foreground="White"/>
+                    <TextBox x:Name="tbTheta0" Text="45"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Alpha0:" Foreground="White"/>
+                    <TextBox x:Name="tbAlpha0" Text="0"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Margin="70  0 0 10">
+                <Button Content="Start" Click="startBtnIsClicked" Background="White"/>
+                <Button Content="Stop"  Click="stopBtnIsClicked" Background="White"/>
+                <Button Content="Reset" Click="resetBtnIsClicked" Background="White"/>
+            </StackPanel>
+            <StackPanel Margin="70 40 0 0">
+                <TextBlock x:Name="tbDisplay" FontSize="16" Foreground="DarkRed" Text="Stopped"/>
+            </StackPanel>
+        </StackPanel>
+        <Separator Margin="0 10 0 10"/>
+        <Viewbox Stretch="Fill">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Canvas x:Name="LestCanvas" Width="280" Height="170" Grid.Column="0">
+                    <Rectangle Fill="DarkGoldenrod" Width="50" Height="10" Canvas.Left="115" Canvas.Top="10"/>
+                    <Line  x:Name="LineOne" X1="140" Y1="20" X2="140" Y2="150" Stroke="Red"/>
+                    <Path Fill="Blue">
+                        <Path.Data>
+                            <EllipseGeometry x:Name="ball" RadiusX="10" RadiusY="10" Center="140,150"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+                <Canvas x:Name="RightCanvas" Width="280" Height="170" Grid.Column="1" ClipToBounds="True">
+                    <Line X1="10" Y1="0" X2="10" Y2="170" Stroke="Gray" StrokeThickness="1"/>
+                    <Line X1="10" Y1="85" X2="280" Y2="85" Stroke="Gray" StrokeThickness="1"/>
+                    <TextBlock Text="time" TextAlignment="Left" Canvas.Left="250" Canvas.Top="85" Foreground="White"/>
+                    <TextBlock Text="theta" TextAlignment="Left" Canvas.Left="10" Foreground="White"/>
+                </Canvas>
+            </Grid>
+        </Viewbox>
+    </StackPanel>
+</Window>
